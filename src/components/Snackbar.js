@@ -15,33 +15,33 @@ type Props = {|
    * Whether the Snackbar is currently visible.
    */
   visible: boolean,
-  /**
-   * Label and press callback for the action button. It should contain the following properties:
-   * - `label` - Label of the action button
-   * - `onPress` - Callback that is called when action button is pressed.
-   */
-  action?: {
-    label: string,
-    accessibilityLabel?: string,
-    onPress: () => mixed,
-  },
-  /**
-   * The duration for which the Snackbar is shown.
-   */
-  duration?: number,
-  /**
-   * Callback called when Snackbar is dismissed. The `visible` prop needs to be updated when this is called.
-   */
-  onDismiss: () => mixed,
-  /**
-   * Text content of the Snackbar.
-   */
-  children: React.Node,
-  style?: any,
-  /**
-   * @optional
-   */
-  theme: Theme,
+    /**
+     * Label and press callback for the action button. It should contain the following properties:
+     * - `label` - Label of the action button
+     * - `onPress` - Callback that is called when action button is pressed.
+     */
+    action ?: {
+      label: string,
+      accessibilityLabel?: string,
+      onPress: () => mixed,
+    },
+    /**
+     * The duration for which the Snackbar is shown.
+     */
+    duration ?: number,
+    /**
+     * Callback called when Snackbar is dismissed. The `visible` prop needs to be updated when this is called.
+     */
+    onDismiss: () => mixed,
+      /**
+       * Text content of the Snackbar.
+       */
+      children: React.Node,
+        style ?: any,
+        /**
+         * @optional
+         */
+        theme: Theme,
 |};
 
 type State = {
@@ -194,7 +194,7 @@ class Snackbar extends React.Component<Props, State> {
   _hideTimeout: TimeoutID;
 
   render() {
-    const { children, visible, action, onDismiss, theme, style } = this.props;
+    const { children, visible, action, onDismiss, theme, style, wrapperStyle } = this.props;
     const { colors, roundness } = theme;
 
     if (this.state.hidden) {
@@ -202,7 +202,7 @@ class Snackbar extends React.Component<Props, State> {
     }
 
     return (
-      <SafeAreaView pointerEvents="box-none" style={styles.wrapper}>
+      <SafeAreaView pointerEvents="box-none" style={[styles.wrapper, wrapperStyle]}>
         <Surface
           pointerEvents="box-none"
           accessibilityLiveRegion="polite"
@@ -215,9 +215,9 @@ class Snackbar extends React.Component<Props, State> {
                 {
                   scale: visible
                     ? this.state.opacity.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0.9, 1],
-                      })
+                      inputRange: [0, 1],
+                      outputRange: [0.9, 1],
+                    })
                     : 1,
                 },
               ],
